@@ -11,21 +11,21 @@ type SimulatedDataService() =
     /// Generate a random float within a range (min, max).
     let randomFloat (minVal: float) (maxVal: float) =
         minVal + (random.NextDouble() * (maxVal - minVal))
+    
+    /// Helper function to extract nutrient ranges and generate random values.
+    let generateNutrientData (cropData: CropNutrientSufficiency) adjustRange =
+        let minN, maxN = adjustRange cropData.NPercentage
+        let minP, maxP = adjustRange cropData.PPercentage
+        let minK, maxK = adjustRange cropData.KPercentage
+        let minCa, maxCa = adjustRange cropData.CaPercentage
+        let minMg, maxMg = adjustRange cropData.MgPercentage
+        let minS, maxS = adjustRange cropData.SPercentage
+        let minFe, maxFe = adjustRange cropData.FePPM
+        let minMn, maxMn = adjustRange cropData.MnPPM
+        let minCu, maxCu = adjustRange cropData.CuPPM
+        let minZn, maxZn = adjustRange cropData.ZnPPM
+        let minB, maxB = adjustRange cropData.BPPM
 
-    /// Generate random soil nutrient data for testing purposes.
-    member this.GenerateRandomSoilData (cropData: CropNutrientSufficiency) =
-        let minN, maxN = cropData.NPercentage
-        let minP, maxP = cropData.PPercentage
-        let minK, maxK = cropData.KPercentage
-        let minCa, maxCa = cropData.CaPercentage
-        let minMg, maxMg = cropData.MgPercentage
-        let minS, maxS = cropData.SPercentage
-        let minFe, maxFe = cropData.FePPM
-        let minMn, maxMn = cropData.MnPPM
-        let minCu, maxCu = cropData.CuPPM
-        let minZn, maxZn = cropData.ZnPPM
-        let minB, maxB = cropData.BPPM
-        
         {
             NPercentage = randomFloat minN maxN
             PPercentage = randomFloat minP maxP
@@ -33,37 +33,23 @@ type SimulatedDataService() =
             CaPercentage = randomFloat minCa maxCa
             MgPercentage = randomFloat minMg maxMg
             SPercentage = randomFloat minS maxS
-            FePPM = randomFloat minFe maxFe  // Now using randomFloat for micronutrients
-            MnPPM = randomFloat minMn maxMn  // Updated to use float
-            CuPPM = randomFloat minCu maxCu  // Updated to use float
-            ZnPPM = randomFloat minZn maxZn  // Updated to use float
-            BPPM = randomFloat minB maxB     // Updated to use float
+            FePPM = randomFloat minFe maxFe  
+            MnPPM = randomFloat minMn maxMn  
+            CuPPM = randomFloat minCu maxCu  
+            ZnPPM = randomFloat minZn maxZn  
+            BPPM = randomFloat minB maxB     
         }
+    
+    /// Adjust range function for out of range generation.
+    let outOfRangeAdjust (minVal: float, maxVal: float) = 
+        (minVal - 1.0, maxVal + 1.0)
+    
+    /// Generate random soil nutrient data for testing purposes.
+    member this.GenerateRandomSoilData (cropData: CropNutrientSufficiency) =
+        generateNutrientData cropData id
+
+    
 
     /// Generate random soil data, potentially outside the sufficiency range (for testing edge cases).
     member this.GenerateRandomSoilDataOutOfRange (cropData: CropNutrientSufficiency) =
-        let (minN, maxN) = cropData.NPercentage
-        let (minP, maxP) = cropData.PPercentage
-        let (minK, maxK) = cropData.KPercentage
-        let (minCa, maxCa) = cropData.CaPercentage
-        let (minMg, maxMg) = cropData.MgPercentage
-        let (minS, maxS) = cropData.SPercentage
-        let (minFe, maxFe) = cropData.FePPM
-        let (minMn, maxMn) = cropData.MnPPM
-        let (minCu, maxCu) = cropData.CuPPM
-        let (minZn, maxZn) = cropData.ZnPPM
-        let (minB, maxB) = cropData.BPPM
-        
-        {
-            NPercentage = randomFloat (minN - 1.0) (maxN + 1.0)
-            PPercentage = randomFloat (minP - 0.1) (maxP + 0.1)
-            KPercentage = randomFloat (minK - 0.5) (maxK + 0.5)
-            CaPercentage = randomFloat (minCa - 0.2) (maxCa + 0.2)
-            MgPercentage = randomFloat (minMg - 0.1) (maxMg + 0.1)
-            SPercentage = randomFloat (minS - 0.1) (maxS + 0.1)
-            FePPM = randomFloat (minFe - 20.0) (maxFe + 20.0)  // Using randomFloat for micronutrients
-            MnPPM = randomFloat (minMn - 10.0) (maxMn + 10.0)  // Updated to float
-            CuPPM = randomFloat (minCu - 2.0) (maxCu + 2.0)    // Updated to float
-            ZnPPM = randomFloat (minZn - 5.0) (maxZn + 5.0)    // Updated to float
-            BPPM = randomFloat (minB - 5.0) (maxB + 5.0)       // Updated to float
-        }
+        generateNutrientData cropData outOfRangeAdjust
