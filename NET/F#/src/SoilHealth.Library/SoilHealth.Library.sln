@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "SoilHealth.Library", "SoilHealth.Library.fsproj", "{17EF2B6C-358E-4C94-B9A9-F40501749107}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SoilHealth.Test", "..\SoilHealth.Test\SoilHealth.Test.fsproj", "{A29A0D49-CBE1-4DED-9C39-AA36BD8D10AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17EF2B6C-358E-4C94-B9A9-F40501749107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17EF2B6C-358E-4C94-B9A9-F40501749107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17EF2B6C-358E-4C94-B9A9-F40501749107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17EF2B6C-358E-4C94-B9A9-F40501749107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29A0D49-CBE1-4DED-9C39-AA36BD8D10AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29A0D49-CBE1-4DED-9C39-AA36BD8D10AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29A0D49-CBE1-4DED-9C39-AA36BD8D10AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29A0D49-CBE1-4DED-9C39-AA36BD8D10AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
