@@ -2,6 +2,7 @@
 
 /// Represents the nutrient levels in the soil.
 /// This data can either be manually entered by the user or generated through simulations.
+
 type SoilNutrientData = {
     NPercentage: float  // Nitrogen percentage in the soil
     PPercentage: float  // Phosphorus percentage in the soil

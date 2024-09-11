@@ -10,32 +10,32 @@ let ``Test Soil Analysis with Deficiency`` () =
     let cropData = {
         CropName = "Corn"
         GrowthStage = "Tasselling"
-        NPercentage = (2.5, 3.5)
-        PPercentage = (0.2, 0.5)
-        KPercentage = (1.5, 2.5)
-        CaPercentage = (0.4, 1.0)
-        MgPercentage = (0.2, 0.4)
-        SPercentage = (0.2, 0.3)
-        FePPM = (20.0, 100.0)
-        MnPPM = (50.0, 150.0)
-        CuPPM = (5.0, 10.0)
-        ZnPPM = (20.0, 50.0)
-        BPPM = (30.0, 50.0)
+        NitrogenRange = (2.5, 3.5)
+        PhosphorusRange = (0.2, 0.5)
+        PotassiumRange = (1.5, 2.5)
+        CalciumRange = (0.4, 1.0)
+        MagnesiumRange = (0.2, 0.4)
+        SulfurRange = (0.2, 0.3)
+        IronRange = (20.0, 100.0)
+        ManganeseRange = (50.0, 150.0)
+        CopperRange = (5.0, 10.0)
+        ZincRange = (20.0, 50.0)
+        BoronRange = (30.0, 50.0)
     }
 
-    // Sample soil data (deficiency in Nitrogen and Potassium)
+    // Sample soil data (with deficiencies in Nitrogen and Potassium)
     let soilData = {
-        NPercentage = 1.8
-        PPercentage = 0.3
-        KPercentage = 1.2
-        CaPercentage = 0.6
-        MgPercentage = 0.35
-        SPercentage = 0.2
-        FePPM = 90.0
-        MnPPM = 120.0
-        CuPPM = 8.0
-        ZnPPM = 40.0
-        BPPM = 45.0
+        NPercentage = 1.8   // Below the minimum of 2.5
+        PPercentage = 0.3   // Within range
+        KPercentage = 1.2   // Below the minimum of 1.5
+        CaPercentage = 0.6  // Within range
+        MgPercentage = 0.35 // Within range
+        SPercentage = 0.2   // Within range
+        FePPM = 90.0        // Within range
+        MnPPM = 120.0       // Within range
+        CuPPM = 7.0         // Within range
+        ZnPPM = 40.0        // Within range
+        BPPM = 45.0         // Within range
     }
 
     // Create the analysis service
