@@ -1,4 +1,4 @@
-# SoilHealthPlanner
+# CropGuardian Class Library
 This library helps farmers monitor soil health and plan their fertilization schedules based on real-time data from soil sensors or manual input. It's essential for optimizing soil quality and ensuring the correct nutrients are applied to the crops.
 
 ## **Available in The Following Programming Languages**
@@ -6,7 +6,7 @@ This library helps farmers monitor soil health and plan their fertilization sche
 - **C# (C-Sharp) COMMING SOON!!**: Since C# is widely used in the .NET ecosystem and is familiar to many developers I'm also publishing a C# class library as well. Also, since C# excels in object-oriented programming, which offers more flexibility in terms of architecture and integration with other projects.
 - **Python COMMING SOON!!**: Due to Python’s strong presence in scientific computing, data analysis, and machine learning as well as its extensive ecosystem of libraries like NumPy, Pandas, and SciPy, Python can make it easier to process and analyze soil health data. Additionally, Python's simplicity and readability make it accessible to a broad audience, including researchers, agronomists, and developers who may not be familiar with F# or C#.
 
-### **Soil Health and Fertilization Planning Library**
+### **CropGuardian Library**
 
 #### Overview:
 This library helps farmers monitor soil health and plan their fertilization schedules based on real-time data from soil sensors or manual input. It's essential for optimizing soil quality and ensuring the correct nutrients are applied to the crops.
@@ -26,7 +26,7 @@ This library helps farmers monitor soil health and plan their fertilization sche
 
 ---
 
-### General Benefits of Packaging as a **.dll**:
+### General Benefits of Packaging as a **.dll** (applies to .NET only):
 - **Code Reusability**: A **.dll** can be reused across multiple projects, making it easier to maintain and deploy consistent functionality in various applications.
 - **Abstraction and Encapsulation**: The underlying complexity of crop prediction, machinery management, or soil health monitoring is abstracted from the main application logic. This encapsulation ensures that the code is organized and isolated, reducing bugs and making future updates easier.
 - **Efficiency and Performance**: Libraries packaged as **.dlls** are compiled and optimized for performance, leading to faster execution times in production applications.
