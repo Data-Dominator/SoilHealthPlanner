@@ -1,24 +1,22 @@
 ﻿namespace SoilHealth.Models
 
-/// Represents a range with minimum and maximum values.
-type Range = float * float
+type NutrientRange = float * float
 
-/// Represents the nutrient sufficiency levels for a specific crop at a particular growth stage.
-/// Each field specifies the acceptable range for nutrient levels.
-type CropNutrientSufficiency =
-    { CropName: string // The name of the crop (e.g., Corn, Soybeans)
-      GrowthStage: string // The growth stage (e.g., Flowering, Tasselling)
-      NitrogenRange: Range // Nitrogen percentage range (min, max)
-      PhosphorusRange: Range // Phosphorus percentage range (min, max)
-      PotassiumRange: Range // Potassium percentage range (min, max)
-      CalciumRange: Range // Calcium percentage range (min, max)
-      MagnesiumRange: Range // Magnesium percentage range (min, max)
-      SulfurRange: Range // Sulfur percentage range (min, max)
-      IronRange: Range // Iron in parts per million (min, max)
-      ManganeseRange: Range // Manganese in parts per million (min, max)
-      CopperRange: Range // Copper in parts per million (min, max)
-      ZincRange: Range // Zinc in parts per million (min, max)
-      BoronRange: Range } // Boron in parts per million (min, max)
+type CropNutrientSufficiency = {
+    CropName: string
+    GrowthStage: string
+    NitrogenRange: NutrientRange
+    PhosphorusRange: NutrientRange
+    PotassiumRange: NutrientRange
+    CalciumRange: NutrientRange
+    MagnesiumRange: NutrientRange
+    SulfurRange: NutrientRange
+    IronRange: NutrientRange
+    ManganeseRange: NutrientRange
+    CopperRange: NutrientRange
+    ZincRange: NutrientRange
+    BoronRange: NutrientRange
+}
 
 /// Module to hold predefined crop data examples for testing or default usage.
 module CropNutrientSufficiencyExamples =

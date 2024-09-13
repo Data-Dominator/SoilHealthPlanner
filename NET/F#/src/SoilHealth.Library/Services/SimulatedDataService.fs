@@ -1,61 +1,49 @@
 ﻿namespace SoilHealth.Services
 
-open SoilHealth.Models
 open System
+open SoilHealth.Models
 
-/// Service to generate simulated soil nutrient data.
-type SimulatedDataService() =
-    
+/// Utility functions for generating random values
+module RandomUtils =
     let random = Random()
 
-    /// Generate a random float within a range (min, max).
-    let randomFloat (minVal: float) (maxVal: float) =
-        minVal + (random.NextDouble() * (maxVal - minVal))
+    /// Generates a random float between two given values (inclusive)
+    let randomFloat minVal maxVal = 
+        minVal + (random.NextDouble() * (maxVal - minVal)) |> float
 
-    /// Validates the input for null values using Option types.
-    let validateInput (crop: CropNutrientSufficiency option) =
-        match crop with
-        | None -> raise (ArgumentNullException("Crop data cannot be null"))
-        | Some _ -> ()
+/// Service for generating simulated soil nutrient data
+type SimulatedDataService() =
 
-    /// Generate random soil nutrient data within the sufficiency ranges.
-    member this.GenerateRandomSoilData (crop: CropNutrientSufficiency option) =
-        validateInput crop  // Validate input before proceeding
-
+    /// Generate random soil nutrient data within the sufficiency ranges for a given crop
+    member this.GenerateRandomSoilData (crop: CropNutrientSufficiency option) : SoilNutrientData =
         match crop with
         | Some cropData ->
-            {
-                NPercentage = randomFloat (fst cropData.NitrogenRange) (snd cropData.NitrogenRange)
-                PPercentage = randomFloat (fst cropData.PhosphorusRange) (snd cropData.PhosphorusRange)
-                KPercentage = randomFloat (fst cropData.PotassiumRange) (snd cropData.PotassiumRange)
-                CaPercentage = randomFloat (fst cropData.CalciumRange) (snd cropData.CalciumRange)
-                MgPercentage = randomFloat (fst cropData.MagnesiumRange) (snd cropData.MagnesiumRange)
-                SPercentage = randomFloat (fst cropData.SulfurRange) (snd cropData.SulfurRange)
-                FePPM = randomFloat (fst cropData.IronRange) (snd cropData.IronRange)
-                MnPPM = randomFloat (fst cropData.ManganeseRange) (snd cropData.ManganeseRange)
-                CuPPM = randomFloat (fst cropData.CopperRange) (snd cropData.CopperRange)
-                ZnPPM = randomFloat (fst cropData.ZincRange) (snd cropData.ZincRange)
-                BPPM = randomFloat (fst cropData.BoronRange) (snd cropData.BoronRange)
-            }
-        | None -> failwith "Invalid crop data"
+            { NPercentage = RandomUtils.randomFloat (fst cropData.NitrogenRange) (snd cropData.NitrogenRange)
+              PPercentage = RandomUtils.randomFloat (fst cropData.PhosphorusRange) (snd cropData.PhosphorusRange)
+              KPercentage = RandomUtils.randomFloat (fst cropData.PotassiumRange) (snd cropData.PotassiumRange)
+              CaPercentage = RandomUtils.randomFloat (fst cropData.CalciumRange) (snd cropData.CalciumRange)
+              MgPercentage = RandomUtils.randomFloat (fst cropData.MagnesiumRange) (snd cropData.MagnesiumRange)
+              SPercentage = RandomUtils.randomFloat (fst cropData.SulfurRange) (snd cropData.SulfurRange)
+              FePPM = RandomUtils.randomFloat (fst cropData.IronRange) (snd cropData.IronRange)
+              MnPPM = RandomUtils.randomFloat (fst cropData.ManganeseRange) (snd cropData.ManganeseRange)
+              CuPPM = RandomUtils.randomFloat (fst cropData.CopperRange) (snd cropData.CopperRange)
+              ZnPPM = RandomUtils.randomFloat (fst cropData.ZincRange) (snd cropData.ZincRange)
+              BPPM = RandomUtils.randomFloat (fst cropData.BoronRange) (snd cropData.BoronRange)
+              SoilMoisturePercentage = RandomUtils.randomFloat 20.0 60.0 } // Example range for soil moisture
+        | None ->
+            raise (ArgumentException("Invalid crop data provided for simulation."))
 
-    /// Generate random soil data outside the sufficiency range (for testing edge cases).
-    member this.GenerateRandomSoilDataOutOfRange (crop: CropNutrientSufficiency option) =
-        validateInput crop  // Validate input before proceeding
-
-        match crop with
-        | Some cropData ->
-            {
-                NPercentage = randomFloat (fst cropData.NitrogenRange - 1.0) (snd cropData.NitrogenRange + 1.0)
-                PPercentage = randomFloat (fst cropData.PhosphorusRange - 0.1) (snd cropData.PhosphorusRange + 0.1)
-                KPercentage = randomFloat (fst cropData.PotassiumRange - 0.5) (snd cropData.PotassiumRange + 0.5)
-                CaPercentage = randomFloat (fst cropData.CalciumRange - 0.2) (snd cropData.CalciumRange + 0.2)
-                MgPercentage = randomFloat (fst cropData.MagnesiumRange - 0.1) (snd cropData.MagnesiumRange + 0.1)
-                SPercentage = randomFloat (fst cropData.SulfurRange - 0.1) (snd cropData.SulfurRange + 0.1)
-                FePPM = randomFloat (fst cropData.IronRange - 20.0) (snd cropData.IronRange + 20.0)
-                MnPPM = randomFloat (fst cropData.ManganeseRange - 10.0) (snd cropData.ManganeseRange + 10.0)
-                CuPPM = randomFloat (fst cropData.CopperRange - 2.0) (snd cropData.CopperRange + 2.0)
-                ZnPPM = randomFloat (fst cropData.ZincRange - 5.0) (snd cropData.ZincRange + 5.0)
-                BPPM = randomFloat (fst cropData.BoronRange - 5.0) (snd cropData.BoronRange + 5.0)
-            }
-        | None -> failwith "Invalid crop data"
+    /// Generate random soil data without relying on crop nutrient data (purely random simulation)
+    member this.GeneratePureRandomSoilData() : SoilNutrientData =
+        { NPercentage = RandomUtils.randomFloat 1.0 5.0
+          PPercentage = RandomUtils.randomFloat 0.1 1.0
+          KPercentage = RandomUtils.randomFloat 0.5 3.0
+          CaPercentage = RandomUtils.randomFloat 0.2 1.5
+          MgPercentage = RandomUtils.randomFloat 0.1 1.0
+          SPercentage = RandomUtils.randomFloat 0.1 0.5
+          FePPM = RandomUtils.randomFloat 10.0 100.0
+          MnPPM = RandomUtils.randomFloat 20.0 200.0
+          CuPPM = RandomUtils.randomFloat 2.0 15.0
+          ZnPPM = RandomUtils.randomFloat 5.0 50.0
+          BPPM = RandomUtils.randomFloat 10.0 60.0
+          SoilMoisturePercentage = RandomUtils.randomFloat 20.0 60.0 }

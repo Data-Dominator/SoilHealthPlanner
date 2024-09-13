@@ -5,52 +5,41 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>CropGuardian.SoilMetrics</PackageId>
-        <Title>CropGuardian.SoilMetrics</Title>
+        <Title>CropGuardian F# Library</Title>
         <Authors>Trent Adams</Authors>
-        <Description>The SoilHealth Library is a robust and highly configurable library designed to assist farmers, agronomists, and agricultural software developers in analyzing soil health and creating optimized fertilization plans.</Description>
-        <Copyright>Copyright © 2024 CropGuardian</Copyright>
+        <Description>A precision agriculture library for monitoring and managing crop health.</Description>
+        <Copyright>© 2024 CropGuardian. All rights reserved.</Copyright>
         <PackageLicenseUrl>https://github.com/trent-adams/CropGuardian.SoilMetrics/blob/main/LICENSE</PackageLicenseUrl>
         <PackageIcon>cropguardian_logo-croped.jpg</PackageIcon>
         <RepositoryUrl>https://github.com/trent-adams/CropGuardian.SoilMetrics</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
         <PackageTags>soil, health, fertilization, agriculture</PackageTags>
-        <PackageReleaseNotes>Release Notes for Version 1.0.0:
-
-Initial Release of SoilHealth Library
-
-The SoilHealth Library provides a robust platform for analyzing soil health and generating optimized fertilization recommendations. It is designed for developers, agronomists, and agricultural software creators, with full support for manual soil data entry and simulated soil condition testing.
-
-Key Features:
-Manual Soil Data Entry: Input soil test results and receive tailored recommendations based on predefined crop nutrient sufficiency ranges.
-Simulated Data Generation: Generate random soil data within or outside sufficiency ranges for testing purposes, helping developers and agronomists simulate real-world scenarios.
-Nutrient Sufficiency Analysis:
-Support for major macronutrients (Nitrogen, Phosphorus, Potassium) and micronutrients (Iron, Copper, Zinc, Boron).
-Analyze nutrient levels based on crop growth stages for enhanced accuracy.
-Predefined Crop Data:
-Includes nutrient sufficiency data for key crops such as corn, soybeans, wheat, and alfalfa.
-Nutrient sufficiency is determined based on various growth stages, ensuring precise fertilization recommendations.
-Edge Case Testing: Test how the library handles extreme soil nutrient conditions by generating data outside normal ranges.
-Improvements:
-Optimized performance for generating random soil data based on predefined sufficiency ranges.
-Enhanced flexibility for handling different crop growth stages and nutrient requirements.
-Compatibility:
-Fully compatible with .NET 8 and can be easily integrated into modern .NET-based applications.</PackageReleaseNotes>
+        <PackageReleaseNotes></PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <Company>Trent Adams</Company>
-        <Product>SoileSense</Product>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
+        <Company>CropGuardian</Company>
+        <Product>CropGuardian</Product>
+        <AssemblyVersion>2.0.0</AssemblyVersion>
+        <FileVersion>2.0.0</FileVersion>
         <NeutralLanguage>en-US</NeutralLanguage>
+        <Version>2.0.0</Version>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>CropGuardianStrongNameKey.snk</AssemblyOriginatorKeyFile>
+        <PublicSign>false</PublicSign>
+        <IncludeSymbols>True</IncludeSymbols>
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Include="Models\CropData.fs" />
-      <Compile Include="Models\SoilData.fs" />
+      <Compile Include="Models\CropNutrientSufficiency.fs" />
+      <Compile Include="Models\NutrientType.fs" />
+      <Compile Include="Models\SoilNutrientData.fs" />
+      <Compile Include="Interfaces\ISoilDataService.fs" />
+      <Compile Include="Interfaces\ICropNutrientSufficiencyProvider.fs" />
       <Compile Include="Services\SoilAnalysisService.fs" />
       <Compile Include="Services\SimulatedDataService.fs" />
     </ItemGroup>
 
     <ItemGroup>
+      <None Include="CropGuardianStrongNameKey.snk" />
       <None Include="cropguardian_logo-croped.jpg">
         <Pack>True</Pack>
         <PackagePath></PackagePath>

@@ -4,40 +4,56 @@ open Xunit
 open SoilHealth.Models
 open SoilHealth.Services
 
+/// Mock crop nutrient sufficiency data for testing
+let mockCropData = 
+    { CropName = "Corn"
+      GrowthStage = "Tasselling"
+      NitrogenRange = (2.5, 3.5)
+      PhosphorusRange = (0.2, 0.5)
+      PotassiumRange = (1.5, 2.5)
+      CalciumRange = (0.4, 1.0)
+      MagnesiumRange = (0.2, 0.4)
+      SulfurRange = (0.2, 0.3)
+      IronRange = (20.0, 100.0)
+      ManganeseRange = (50.0, 150.0)
+      CopperRange = (5.0, 10.0)
+      ZincRange = (20.0, 50.0)
+      BoronRange = (30.0, 50.0) }
+
+/// Test that SimulatedDataService generates random soil data within the crop's nutrient ranges
 [<Fact>]
-let ``Test Generate Random Soil Data Within Range`` () =
-    // Sample crop data (Corn at Tasselling) wrapped in Some to match Option type
-    let cropData = Some {
-        CropName = "Corn"
-        GrowthStage = "Tasselling"
-        NitrogenRange = (2.5, 3.5)
-        PhosphorusRange = (0.2, 0.5)
-        PotassiumRange = (1.5, 2.5)
-        CalciumRange = (0.4, 1.0)
-        MagnesiumRange = (0.2, 0.4)
-        SulfurRange = (0.2, 0.3)
-        IronRange = (20.0, 100.0)
-        ManganeseRange = (50.0, 150.0)
-        CopperRange = (5.0, 10.0)
-        ZincRange = (20.0, 50.0)
-        BoronRange = (30.0, 50.0)
-    }
-
-    // Create the simulated data service
+let ``GenerateRandomSoilData should generate soil data within crop's nutrient range`` () =
     let simulatedDataService = SimulatedDataService()
+    let randomSoilData = simulatedDataService.GenerateRandomSoilData(Some mockCropData)
 
-    // Generate random soil data
-    let randomSoilData = simulatedDataService.GenerateRandomSoilData(cropData)
+    // Assert that the generated soil data is within the specified range
+    Assert.InRange(randomSoilData.NPercentage, 2.5, 3.5)
+    Assert.InRange(randomSoilData.PPercentage, 0.2, 0.5)
+    Assert.InRange(randomSoilData.KPercentage, 1.5, 2.5)
+    Assert.InRange(randomSoilData.CaPercentage, 0.4, 1.0)
+    Assert.InRange(randomSoilData.MgPercentage, 0.2, 0.4)
+    Assert.InRange(randomSoilData.SPercentage, 0.2, 0.3)
+    Assert.InRange(randomSoilData.FePPM, 20.0, 100.0)
+    Assert.InRange(randomSoilData.MnPPM, 50.0, 150.0)
+    Assert.InRange(randomSoilData.CuPPM, 5.0, 10.0)
+    Assert.InRange(randomSoilData.ZnPPM, 20.0, 50.0)
+    Assert.InRange(randomSoilData.BPPM, 30.0, 50.0)
 
-    // Assert that the generated data is within the expected ranges
-    Assert.InRange(randomSoilData.NPercentage, fst (2.5, 3.5), snd (2.5, 3.5))
-    Assert.InRange(randomSoilData.PPercentage, fst (0.2, 0.5), snd (0.2, 0.5))
-    Assert.InRange(randomSoilData.KPercentage, fst (1.5, 2.5), snd (1.5, 2.5))
-    Assert.InRange(randomSoilData.CaPercentage, fst (0.4, 1.0), snd (0.4, 1.0))
-    Assert.InRange(randomSoilData.MgPercentage, fst (0.2, 0.4), snd (0.2, 0.4))
-    Assert.InRange(randomSoilData.SPercentage, fst (0.2, 0.3), snd (0.2, 0.3))
-    Assert.InRange(randomSoilData.FePPM, fst (20.0, 100.0), snd (20.0, 100.0))
-    Assert.InRange(randomSoilData.MnPPM, fst (50.0, 150.0), snd (50.0, 150.0))
-    Assert.InRange(randomSoilData.CuPPM, fst (5.0, 10.0), snd (5.0, 10.0))
-    Assert.InRange(randomSoilData.ZnPPM, fst (20.0, 50.0), snd (20.0, 50.0))
-    Assert.InRange(randomSoilData.BPPM, fst (30.0, 50.0), snd (30.0, 50.0))
+/// Test that SimulatedDataService generates purely random soil data
+[<Fact>]
+let ``GeneratePureRandomSoilData should generate random soil data`` () =
+    let simulatedDataService = SimulatedDataService()
+    let randomSoilData = simulatedDataService.GeneratePureRandomSoilData()
+
+    // Just check the ranges; they should be reasonable
+    Assert.InRange(randomSoilData.NPercentage, 1.0, 5.0)
+    Assert.InRange(randomSoilData.PPercentage, 0.1, 1.0)
+    Assert.InRange(randomSoilData.KPercentage, 0.5, 3.0)
+    Assert.InRange(randomSoilData.CaPercentage, 0.2, 1.5)
+    Assert.InRange(randomSoilData.MgPercentage, 0.1, 1.0)
+    Assert.InRange(randomSoilData.SPercentage, 0.1, 0.5)
+    Assert.InRange(randomSoilData.FePPM, 10.0, 100.0)
+    Assert.InRange(randomSoilData.MnPPM, 20.0, 200.0)
+    Assert.InRange(randomSoilData.CuPPM, 2.0, 15.0)
+    Assert.InRange(randomSoilData.ZnPPM, 5.0, 50.0)
+    Assert.InRange(randomSoilData.BPPM, 10.0, 60.0)
